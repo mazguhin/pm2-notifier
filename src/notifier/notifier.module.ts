@@ -1,8 +1,16 @@
-import { Module } from '@nestjs/common';
-import { NotifierService } from './notifier-service.provider';
+import {Module} from '@nestjs/common';
+import {NotifierService} from './notifier-service.provider';
+import {ConfigModule} from "@nestjs/config";
+import notifierConfig from "../config/notifier";
+import {HttpModule} from "@nestjs/axios";
 
 @Module({
-  providers: [NotifierService],
-  exports: [NotifierService],
+    imports: [
+        ConfigModule.forFeature(notifierConfig),
+        HttpModule,
+    ],
+    providers: [NotifierService],
+    exports: [NotifierService],
 })
-export class NotifierModule {}
+export class NotifierModule {
+}
