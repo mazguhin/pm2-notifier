@@ -12,7 +12,10 @@ export class RecipientService {
     public getByProject(project: string): Array<RecipientEntity> {
         const projects = this.configService.get('recipients');
 
-        return projects[project].map(identifier => {
+        const identifiers = projects[project];
+        if (!identifiers) return [];
+
+        return identifiers.map(identifier => {
             const recipient = new RecipientEntity();
             recipient.identifier = identifier;
             return recipient;
