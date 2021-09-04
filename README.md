@@ -3,12 +3,17 @@
 ## Development
 
 Install dependencies
-> npm i
+```
+$ npm i
+```
 
 Define config files
-> cp .env.example .env
-
-> cp recipients.yaml.example recipients.yaml
+```
+$ cp .env.example .env
+$ cp recipients.yaml.example recipients.yaml
+```
 
 Start application in watch mode
-> npm run start:dev
+```
+$ npm run start:dev
+```
