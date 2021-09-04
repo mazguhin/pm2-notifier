@@ -19,7 +19,6 @@ export class SimpleTelegramNotifier implements NotifierInterface {
 
     public async error(recipient: RecipientEntity, errors: Array<ErrorNotificationInterface>) {
         const chat = recipient.identifier;
-        console.log(errors);
         const uniqueErrors = this.deleteDuplicates(errors);
         const messages = this.groupErrorsInMessages(uniqueErrors);
         messages.forEach(message => this.sendMessage(chat, message));

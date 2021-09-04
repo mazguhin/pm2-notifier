@@ -1,6 +1,6 @@
 # PM2 Notifier
 
-## Development
+## Running the app
 
 Install dependencies
 
@@ -15,8 +15,14 @@ $ cp .env.example .env
 $ cp recipients.yaml.example recipients.yaml
 ```
 
-Start application in watch mode
+### Development
 
 ```
 $ npm run start:dev
+```
+
+### Production
+```
+$ npm run build
+$ npm run start:prod
 ```
