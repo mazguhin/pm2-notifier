@@ -1,8 +1,8 @@
 import {Injectable} from '@nestjs/common';
-import {NotifierInterface} from './interface/notifier.interface';
-import {ErrorNotificationInterface} from "./interface/error-notification.interface";
 import {HttpService} from "@nestjs/axios";
 import {ConfigService} from "@nestjs/config";
+import {NotifierInterface} from './interface/notifier.interface';
+import {ErrorNotificationInterface} from "./interface/error-notification.interface";
 import {RecipientEntity} from "../recipient/entity/recipient.entity";
 
 @Injectable()
@@ -19,8 +19,19 @@ export class SimpleTelegramNotifier implements NotifierInterface {
 
     public async error(recipient: RecipientEntity, errors: Array<ErrorNotificationInterface>) {
         const chat = recipient.identifier;
-        const messages = this.groupErrorsInMessages(errors);
+        console.log(errors);
+        const uniqueErrors = this.deleteDuplicates(errors);
+        const messages = this.groupErrorsInMessages(uniqueErrors);
         messages.forEach(message => this.sendMessage(chat, message));
+    }
+
+    private deleteDuplicates(errors: Array<ErrorNotificationInterface>): Array<ErrorNotificationInterface> {
+        const mapItems = new Map();
+        for (const error of errors) {
+            mapItems.set(error.text, error);
+        }
+
+        return [...mapItems.values()];
     }
 
     private groupErrorsInMessages(errors: Array<ErrorNotificationInterface>): Array<string> {

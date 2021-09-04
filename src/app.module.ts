@@ -1,10 +1,8 @@
 import {CacheModule, Module} from '@nestjs/common';
-import {AppService} from './app.service';
-import {NotifierModule} from './module/notifier/notifier.module';
 import {ConfigModule} from "@nestjs/config";
+import {NotifierModule} from './module/notifier/notifier.module';
 import {RecipientModule} from './module/recipient/recipient.module';
-import {ErrorRepository} from "./repository/error.repository";
-import {ActiveProcessRepository} from "./repository/active-process.repository";
+import {Pm2Module} from './module/pm2/pm2.module';
 
 @Module({
     imports: [
@@ -12,8 +10,9 @@ import {ActiveProcessRepository} from "./repository/active-process.repository";
         CacheModule.register(),
         NotifierModule,
         RecipientModule,
+        Pm2Module,
     ],
-    providers: [AppService, ErrorRepository, ActiveProcessRepository],
+    providers: [],
 })
 export class AppModule {
 }

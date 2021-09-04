@@ -1,14 +1,14 @@
-import * as dayjs from 'dayjs'
-import {Inject, Injectable} from '@nestjs/common';
-import {Pm2ErrorInterface} from './interface/pm2-error.interface';
-import {NotifierInterface} from './module/notifier/interface/notifier.interface';
-import {NOTIFIER_SERVICE} from './module/notifier/notifier-service.provider';
-import {RecipientService} from "./module/recipient/recipient.service";
+import * as dayjs from "dayjs";
+import {Inject, Injectable} from "@nestjs/common";
+import {Pm2ErrorInterface} from "./interface/pm2-error.interface";
+import {NOTIFIER_SERVICE} from "../notifier/notifier-service.provider";
+import {NotifierInterface} from "../notifier/interface/notifier.interface";
 import {ActiveProcessRepository} from "./repository/active-process.repository";
 import {ErrorRepository} from "./repository/error.repository";
+import {RecipientService} from "../recipient/recipient.service";
 
 @Injectable()
-export class AppService {
+export class ErrorService {
     constructor(
         @Inject(NOTIFIER_SERVICE) private notifierService: NotifierInterface,
         private activeProcessRepository: ActiveProcessRepository,
@@ -17,14 +17,14 @@ export class AppService {
     ) {
     }
 
-    public async addError(error: Pm2ErrorInterface) {
+    public async add(error: Pm2ErrorInterface) {
         return Promise.all([
             this.errorRepository.add(error),
             this.activeProcessRepository.add(error.process.name)
         ]);
     }
 
-    public async sendErrors() {
+    public async send() {
         const activeProcesses = await this.activeProcessRepository.all();
         await this.activeProcessRepository.reset();
 

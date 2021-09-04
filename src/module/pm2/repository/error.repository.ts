@@ -1,5 +1,5 @@
-import {Pm2ErrorInterface} from "../interface/pm2-error.interface";
 import {CACHE_MANAGER, Inject, Injectable} from "@nestjs/common";
+import {Pm2ErrorInterface} from "../interface/pm2-error.interface";
 
 @Injectable()
 export class ErrorRepository {

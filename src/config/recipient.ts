@@ -1,6 +1,7 @@
 import {readFileSync} from 'fs';
-import * as yaml from 'js-yaml';
 import {join} from 'path';
+
+import * as yaml from 'js-yaml';
 import {registerAs} from "@nestjs/config";
 
 const YAML_CONFIG_FILENAME = 'recipients.yaml';
